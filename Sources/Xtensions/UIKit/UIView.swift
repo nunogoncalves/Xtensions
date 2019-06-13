@@ -10,7 +10,7 @@
 
     import UIKit
 
-    func create<T: UIView>(usingAutoLayout: Bool = true, configure: (T) -> Void = { _ in }) -> T {
+    public func create<T: UIView>(usingAutoLayout: Bool = true, configure: (T) -> Void = { _ in }) -> T {
         let object = T()
         object.translatesAutoresizingMaskIntoConstraints = !usingAutoLayout
         configure(object)
