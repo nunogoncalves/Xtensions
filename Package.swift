@@ -7,6 +7,12 @@ private let target: Target = .target(name: "Xtensions")
 
 let package = Package(
     name: "Xtensions",
+    platforms: [
+        .macOS(.v10_12),
+        .iOS(.v12),
+        .watchOS(.v3),
+        .tvOS(.v12)
+    ],
     products: [.library(name: "Xtensions", targets: [target.name])],
     dependencies: [],
     targets: [

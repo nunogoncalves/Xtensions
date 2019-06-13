@@ -3,7 +3,7 @@
 //  XtensionsTests
 //
 //  Created by Nuno Gonçalves on 10/06/2019.
-//  Copyright © 2016 Nuno Gonçalves. All rights reserved.
+//  Copyright © 2019 Nuno Gonçalves. All rights reserved.
 //
 
 import XCTest
@@ -11,21 +11,33 @@ import XCTest
 
 final class CollectionTests: XCTestCase {
 
-    struct Person { let name: String }
+    struct Person { let name: String; let age: Int }
+
+    let people = [
+        Person(name: "Katrina", age: 35),
+        Person(name: "Alice", age: 0),
+        Person(name: "Nuno", age: 34),
+        Person(name: "Bianca", age: 3),
+    ]
 
     func testKeyPath() {
 
-        let people = [
-            Person(name: "Nuno"),
-            Person(name: "Katrina"),
-            Person(name: "Bianca"),
-            Person(name: "Alice")
-        ]
+        XCTAssertEqual(people[\.name], ["Katrina", "Alice", "Nuno", "Bianca"])
+    }
 
-        XCTAssertEqual(people[\.name], ["Nuno", "Katrina", "Bianca", "Alice"])
+    func testSortedByKeyPath() {
+        let sortedByAgeDecreasing = people.sorted(by: \.age, >)[\.name]
+        XCTAssertEqual(sortedByAgeDecreasing, ["Katrina", "Nuno", "Bianca", "Alice"])
+
+        let sortedByAgeIncreasing = people.sorted(by: \.age)[\.name]
+        XCTAssertEqual(sortedByAgeIncreasing, ["Alice", "Bianca", "Nuno", "Katrina"])
+
+        let sortedByName = people.sorted(by: \.name)[\.name]
+        XCTAssertEqual(sortedByName, ["Alice", "Bianca", "Katrina", "Nuno"])
     }
 
     static var allTests = [
         ("testKeyPath", testKeyPath),
+        ("testSortedByKeyPath", testSortedByKeyPath)
     ]
 }

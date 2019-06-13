@@ -1,9 +1,9 @@
 //
-//  AppColorTests.swift
+//  NSColorTests.swift
 //  XtensionsTests
 //
 //  Created by Nuno Gonçalves on 10/06/2019.
-//  Copyright © 2016 Nuno Gonçalves. All rights reserved.
+//  Copyright © 2019 Nuno Gonçalves. All rights reserved.
 //
 
 import XCTest
@@ -12,7 +12,7 @@ import XCTest
 #if canImport(AppKit)
     import AppKit
 
-    final class AppColorTests: XCTestCase {
+    final class NSColorTests: XCTestCase {
 
         func testCommonInit() {
 
@@ -36,7 +36,7 @@ import XCTest
         }
 
         static var allTests = [
-            ("testKeyPath", testCommonInit),
+            ("testCommonInit", testCommonInit),
         ]
     }
 #endif

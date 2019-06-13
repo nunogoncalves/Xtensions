@@ -1,9 +1,9 @@
 //
-//  AppColorTests.swift
+//  UIColorTests.swift
 //  XtensionsTests
 //
 //  Created by Nuno Gonçalves on 10/06/2019.
-//  Copyright © 2016 Nuno Gonçalves. All rights reserved.
+//  Copyright © 2019 Nuno Gonçalves. All rights reserved.
 //
 
 import XCTest
