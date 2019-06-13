@@ -16,7 +16,7 @@ import AppKit
 typealias Color = NSColor
 #endif
 
-extension Color {
+public extension Color {
 
     convenience init(hex: UInt, alpha: CGFloat = 1.0) {
 

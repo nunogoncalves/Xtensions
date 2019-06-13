@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Collection {
+public extension Collection {
     subscript<T>(_ keypath: KeyPath<Element, T>) -> [T] {
         return map { $0[keyPath: keypath] }
     }
