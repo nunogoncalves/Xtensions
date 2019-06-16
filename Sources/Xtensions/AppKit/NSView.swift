@@ -266,7 +266,8 @@ public extension NSView {
         return anchor(centerYAnchor, equality, NSView.centerYAnchor, constant)
     }
 
-    func anchor<T>(
+    @discardableResult
+    private func anchor<T>(
         _ anchor: NSLayoutAnchor<T>,
         _ equality: (Int, Int) -> (Bool),
         _ anchor2: NSLayoutAnchor<T>,
@@ -290,8 +291,40 @@ public extension NSView {
         return constraint
     }
 
-    static func set(_ dimension: NSLayoutDimension, _ constant: CGFloat) {
-        dimension.constraint(equalToConstant: constant).isActive = true
+    func constrainSize(equalTo constant: CGFloat) {
+        widthAnchor.constraint(equalToConstant: constant).isActive = true
+        heightAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+
+    func constrain(width: CGFloat, height: CGFloat) {
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: width),
+            heightAnchor.constraint(equalToConstant: height)
+        ])
+    }
+
+    func constrain(toCenterOf view: NSView) {
+        NSLayoutConstraint.activate([
+            centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    func constrain(height: CGFloat) {
+        return heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+
+    func constrain(width: CGFloat) {
+        return widthAnchor.constraint(equalToConstant: width).isActive = true
+    }
+
+    func center(
+        _ equality: (Int, Int) -> (Bool),
+        _ view: NSView,
+        _ constant: CGFloat = 0
+    ) {
+        anchor(centerYAnchor, equality, view.centerYAnchor, constant)
+        anchor(centerXAnchor, equality, view.centerXAnchor, constant)
     }
 }
 
