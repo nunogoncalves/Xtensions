@@ -310,12 +310,19 @@
             ])
         }
 
-        func constrain(height: CGFloat) {
-            return heightAnchor.constraint(equalToConstant: height).isActive = true
+        @discardableResult
+        func constrain(height: CGFloat) -> NSLayoutConstraint {
+            let constraint = heightAnchor.constraint(equalToConstant: height)
+            constraint.isActive = true
+            return constraint
         }
 
-        func constrain(width: CGFloat) {
-            return widthAnchor.constraint(equalToConstant: width).isActive = true
+        @discardableResult
+        func constrain(width: CGFloat) -> NSLayoutConstraint {
+            let constraint = widthAnchor.constraint(equalToConstant: width)
+            constraint.isActive = true
+            return constraint
+
         }
 
         func center(
