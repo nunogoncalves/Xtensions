@@ -10,7 +10,14 @@
 
     import UIKit
 
-    public func create<T: UIView>(usingAutoLayout: Bool = true, configure: (T) -> Void = { _ in }) -> T {
+    /**
+        This function creates a view of UIView subclass using the empty initializer.
+        If you add other inits to your subclass this function will crash.
+    */
+    public func create<T: UIView>(
+        usingAutoLayout: Bool = true,
+        configure: (T) -> Void = { _ in }
+    ) -> T {
         let object = T()
         object.translatesAutoresizingMaskIntoConstraints = !usingAutoLayout
         configure(object)
@@ -19,11 +26,11 @@
 
     public extension UIView {
 
-        func addSubUIViews(_ views: UIView...) {
+        func addSubViews(_ views: UIView...) {
             views.forEach { addSubview($0) }
         }
 
-        func addSubUIViews(_ views: [UIView]) {
+        func addSubViews(_ views: [UIView]) {
             views.forEach { addSubview($0) }
         }
 
@@ -64,8 +71,8 @@
         }
 
 
-        func pinTo(
-            marginsGuide guide: UILayoutGuide,
+        func pinToMargins(
+            of guide: UILayoutGuide,
             topConstant: CGFloat = 0,
             leadingConstant: CGFloat = 0,
             bottomConstant: CGFloat = 0,
@@ -406,6 +413,10 @@
             anchor(centerYAnchor, equality, view.centerYAnchor, constant)
             anchor(centerXAnchor, equality, view.centerXAnchor, constant)
         }
+    }
+
+    static func set(_ dimension: NSLayoutDimension, _ constant: CGFloat) {
+        dimension.constraint(equalToConstant: constant).isActive = true
     }
 
 #endif
