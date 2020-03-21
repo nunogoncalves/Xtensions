@@ -184,6 +184,15 @@
         }
 
         @discardableResult
+        func top(
+            _ equality: (Int, Int) -> (Bool),
+            _ guide: UILayoutGuide,
+            _ constant: CGFloat = 0
+        ) -> NSLayoutConstraint {
+            return anchor(topAnchor, equality, guide.topAnchor, constant)
+        }
+
+        @discardableResult
         func bottom(
             _ equality: (Int, Int) -> (Bool),
             _ other: NSLayoutYAxisAnchor,
@@ -199,6 +208,15 @@
             _ constant: CGFloat = 0
         ) -> NSLayoutConstraint {
             return anchor(bottomAnchor, equality, view.bottomAnchor, constant)
+        }
+
+        @discardableResult
+        func bottom(
+            _ equality: (Int, Int) -> (Bool),
+            _ guide: UILayoutGuide,
+            _ constant: CGFloat = 0
+        ) -> NSLayoutConstraint {
+            return anchor(bottomAnchor, equality, guide.bottomAnchor, constant)
         }
 
         @discardableResult
@@ -220,6 +238,15 @@
         }
 
         @discardableResult
+        func leading(
+            _ equality: (Int, Int) -> (Bool),
+            _ guide: UILayoutGuide,
+            _ constant: CGFloat = 0
+        ) -> NSLayoutConstraint {
+            return anchor(leadingAnchor, equality, guide.leadingAnchor, constant)
+        }
+
+        @discardableResult
         func trailing(
             _ equality: (Int, Int) -> (Bool),
             _ view: UIView,
@@ -235,6 +262,15 @@
             _ constant: CGFloat = 0
         ) -> NSLayoutConstraint {
             return anchor(trailingAnchor, equality, other, constant)
+        }
+
+        @discardableResult
+        func trailing(
+            _ equality: (Int, Int) -> (Bool),
+            _ guide: UILayoutGuide,
+            _ constant: CGFloat = 0
+        ) -> NSLayoutConstraint {
+            return anchor(trailingAnchor, equality, guide.trailingAnchor, constant)
         }
 
         @discardableResult
