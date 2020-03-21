@@ -26,11 +26,11 @@
 
     public extension UIView {
 
-        func addSubViews(_ views: UIView...) {
+        func addSubviews(_ views: UIView...) {
             views.forEach { addSubview($0) }
         }
 
-        func addSubViews(_ views: [UIView]) {
+        func addSubviews(_ views: [UIView]) {
             views.forEach { addSubview($0) }
         }
 
@@ -413,10 +413,9 @@
             anchor(centerYAnchor, equality, view.centerYAnchor, constant)
             anchor(centerXAnchor, equality, view.centerXAnchor, constant)
         }
-    }
 
-    static func set(_ dimension: NSLayoutDimension, _ constant: CGFloat) {
-        dimension.constraint(equalToConstant: constant).isActive = true
+        static func set(_ dimension: NSLayoutDimension, _ constant: CGFloat) {
+            dimension.constraint(equalToConstant: constant).isActive = true
+        }
     }
-
 #endif
