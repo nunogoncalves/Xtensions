@@ -19,12 +19,12 @@ public func create<T: NSView>(usingAutoLayout: Bool = true, configure: (T) -> Vo
 
 public extension NSView {
 
-    func addSubNSViews(_ NSViews: NSView...) {
-        NSViews.forEach { addSubview($0) }
+    func addSubNSViews(_ views: NSView...) {
+        views.forEach { addSubview($0) }
     }
 
-    func addSubNSViews(_ NSViews: [NSView]) {
-        NSViews.forEach { addSubview($0) }
+    func addSubNSViews(_ views: [NSView]) {
+        views.forEach { addSubview($0) }
     }
 
     static func usingAutoLayout() -> Self {
@@ -38,7 +38,7 @@ public extension NSView {
     }
 
     func pinToBounds(
-        of NSView: NSView,
+        of view: NSView,
         topConstant: CGFloat = 0,
         leadingConstant: CGFloat = 0,
         bottomConstant: CGFloat = 0,
@@ -46,16 +46,16 @@ public extension NSView {
     ) {
 
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: NSView.topAnchor, constant: topConstant),
-            leadingAnchor.constraint(equalTo: NSView.leadingAnchor, constant: leadingConstant),
-            bottomAnchor.constraint(equalTo: NSView.bottomAnchor, constant: bottomConstant),
-            trailingAnchor.constraint(equalTo: NSView.trailingAnchor, constant: trailingConstant)
+            topAnchor.constraint(equalTo: view.topAnchor, constant: topConstant),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingConstant),
+            bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottomConstant),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailingConstant)
         ])
     }
 
-    func pinToBounds(of NSView: NSView, margins margin: CGFloat) {
+    func pinToBounds(of view: NSView, margins margin: CGFloat) {
         pinToBounds(
-            of: NSView,
+            of: view,
             topConstant: margin,
             leadingConstant: margin,
             bottomConstant: -margin,
@@ -80,41 +80,56 @@ public extension NSView {
         ])
     }
 
-    func constrain(referringTo NSView: NSView, all: CGFloat) {
-        constrain(referringTo: NSView, top: all, leading: all, bottom: -all, trailing: -all)
+    func constrain(referringTo view: NSView, all margin: CGFloat) {
+        constrain(referringTo: view, top: margin, leading: margin, bottom: -margin, trailing: -margin)
     }
 
     func constrain(
-        referringTo NSView: NSView,
+        referringTo view: NSView,
         top: CGFloat? = 0,
         leading: CGFloat? = 0,
         bottom: CGFloat? = 0,
         trailing: CGFloat? = 0
+    ) {
+        constrainOnly(
+            top: top ?? 0,
+            leading: leading ?? 0,
+            bottom: bottom ?? 0,
+            trailing: trailing ?? 0,
+            referringTo: view
+        )
+    }
+    func constrainOnly(
+        top: CGFloat? = nil,
+        leading: CGFloat? = nil,
+        bottom: CGFloat? = nil,
+        trailing: CGFloat? = nil,
+        referringTo view: NSView
     ) {
 
         var constraintsToActivate: [NSLayoutConstraint] = []
 
         if let topConstant = top {
             constraintsToActivate.append(
-                topAnchor.constraint(equalTo: NSView.topAnchor, constant: topConstant)
+                topAnchor.constraint(equalTo: view.topAnchor, constant: topConstant)
             )
         }
 
         if let leadingConstant = leading {
             constraintsToActivate.append(
-                leadingAnchor.constraint(equalTo: NSView.leadingAnchor, constant: leadingConstant)
+                leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingConstant)
             )
         }
 
         if let bottomConstant = bottom {
             constraintsToActivate.append(
-                bottomAnchor.constraint(equalTo: NSView.bottomAnchor, constant: bottomConstant)
+                bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottomConstant)
             )
         }
 
         if let trailingConstant = trailing {
             constraintsToActivate.append(
-                trailingAnchor.constraint(equalTo: NSView.trailingAnchor, constant: trailingConstant)
+                trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: trailingConstant)
             )
         }
 
@@ -128,7 +143,22 @@ public extension NSView {
         bottom: CGFloat? = 0,
         trailing: CGFloat? = 0
     ) {
+        constrainOnly(
+            top: top ?? 0,
+            leading: leading ?? 0,
+            bottom: bottom ?? 0,
+            trailing: trailing ?? 0,
+            referringTo: guide
+        )
+    }
 
+    func constrainOnly(
+        top: CGFloat? = nil,
+        leading: CGFloat? = nil,
+        bottom: CGFloat? = nil,
+        trailing: CGFloat? = nil,
+        referringTo guide: NSLayoutGuide
+    ) {
         var constraintsToActivate: [NSLayoutConstraint] = []
 
         if let topConstant = top {
@@ -170,10 +200,10 @@ public extension NSView {
     @discardableResult
     func top(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(topAnchor, equality, NSView.topAnchor, constant)
+        return anchor(topAnchor, equality, view.topAnchor, constant)
     }
 
     @discardableResult
@@ -188,10 +218,10 @@ public extension NSView {
     @discardableResult
     func bottom(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(bottomAnchor, equality, NSView.bottomAnchor, constant)
+        return anchor(bottomAnchor, equality, view.bottomAnchor, constant)
     }
 
     @discardableResult
@@ -206,19 +236,19 @@ public extension NSView {
     @discardableResult
     func leading(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(leadingAnchor, equality, NSView.leadingAnchor, constant)
+        return anchor(leadingAnchor, equality, view.leadingAnchor, constant)
     }
 
     @discardableResult
     func trailing(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(trailingAnchor, equality, NSView.trailingAnchor, constant)
+        return anchor(trailingAnchor, equality, view.trailingAnchor, constant)
     }
 
     @discardableResult
@@ -242,10 +272,10 @@ public extension NSView {
     @discardableResult
     func centerX(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(centerXAnchor, equality, NSView.centerXAnchor, constant)
+        return anchor(centerXAnchor, equality, view.centerXAnchor, constant)
     }
 
     @discardableResult
@@ -260,10 +290,10 @@ public extension NSView {
     @discardableResult
     func centerY(
         _ equality: (Int, Int) -> (Bool),
-        _ NSView: NSView,
+        _ view: NSView,
         _ constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        return anchor(centerYAnchor, equality, NSView.centerYAnchor, constant)
+        return anchor(centerYAnchor, equality, view.centerYAnchor, constant)
     }
 
     @discardableResult

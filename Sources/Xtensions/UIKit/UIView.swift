@@ -98,6 +98,22 @@
             bottom: CGFloat? = 0,
             trailing: CGFloat? = 0
         ) {
+            constrainOnly(
+                top: top ?? 0,
+                leading: leading ?? 0,
+                bottom: bottom ?? 0,
+                trailing: trailing ?? 0,
+                referringTo: view
+            )
+        }
+
+        func constrainOnly(
+            top: CGFloat? = nil,
+            leading: CGFloat? = nil,
+            bottom: CGFloat? = nil,
+            trailing: CGFloat? = nil,
+            referringTo view: UIView
+        ) {
 
             var constraintsToActivate: [NSLayoutConstraint] = []
 
@@ -134,6 +150,22 @@
             leading: CGFloat? = 0,
             bottom: CGFloat? = 0,
             trailing: CGFloat? = 0
+        ) {
+            constrainOnly(
+                top: top ?? 0,
+                leading: leading ?? 0,
+                bottom: bottom ?? 0,
+                trailing: trailing ?? 0,
+                referringTo: guide
+            )
+        }
+
+        func constrainOnly(
+            top: CGFloat? = nil,
+            leading: CGFloat? = nil,
+            bottom: CGFloat? = nil,
+            trailing: CGFloat? = nil,
+            referringTo guide: UILayoutGuide
         ) {
 
             var constraintsToActivate: [NSLayoutConstraint] = []
